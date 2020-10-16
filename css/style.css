@@ -20,3 +20,26 @@
   background: green;
   border-radius: 100%;
 }
+
+.mobile {
+  display: block;
+}
+
+.desktop {
+  display: none;
+}
+
+/* Tablet */
+@media screen and (min-width: 48rem) {
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: block;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 64rem) {
+}

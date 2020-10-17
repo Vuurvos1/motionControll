@@ -5,6 +5,11 @@
     <title>Motion Controlls</title>
     <link rel="stylesheet" href="css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      type="text/javascript"
+      src="https://cdn.socket.io/socket.io-2.3.0.js"
+    ></script>
   </head>
   <body>
     <header>
@@ -14,13 +19,18 @@
     <main>
       <section class="mobile">
         <h2>this is mobile</h2>
+        <p>Connect phone with code from pc</p>
         <form action="">
-          <input type="text" />
-          <button type="submit"></button>
+          <input class="roomInput" type="text" />
+          <button class="joinRoom" type="submit">Connect</button>
         </form>
       </section>
 
+      <!-- <section class="mobile mobile-connected"></section> -->
+
       <section class="desktop">
+        <p class="roomCode"></p>
+
         <div class="garden">
           <div class="ball"></div>
         </div>
@@ -32,6 +42,8 @@
     </main>
 
     <footer></footer>
+
+    <!-- add separate page for mobile? host/mobile something something? -->
 
     <script src="js/script.js"></script>
   </body>

@@ -15,6 +15,7 @@ let io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
   console.log(`We have a new client: ${socket.id}`);
+  let room = '';
 
   // room logic
   socket.on('createRoom', (data) => {
@@ -22,6 +23,8 @@ io.on('connection', (socket) => {
     // check if room doesn't already exist
     console.log(x);
     socket.join(x);
+
+    room = x;
 
     socket.emit('createRoom', x);
 
@@ -31,7 +34,12 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (data) => {
     // ensure only 2 people can be in a room (host and controller)
     socket.join(data);
+    room = data;
 
     console.log(io.sockets.adapter.rooms);
+  });
+
+  socket.on('motionData', (data) => {
+    socket.to(room).emit('motionData', data);
   });
 });

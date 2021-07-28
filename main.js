@@ -4,6 +4,9 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import { buttonSetup } from '/buttons';
+buttonSetup();
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
 

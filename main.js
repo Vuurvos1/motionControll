@@ -5,19 +5,32 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / innerHeight,
-  0.1,
-  1000
-);
+const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
+
+function resizeCanvas() {
+  const canvas = renderer.domElement;
+  // look up the size the canvas is being displayed
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  // adjust displayBuffer size to match
+  if (canvas.width !== width || canvas.height !== height) {
+    // you must pass false here or three.js sadly fights the browser
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+}
+
+window.addEventListener('resize', resizeCanvas);
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
 
+resizeCanvas();
+
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -40,7 +53,9 @@ scene.add(lightHelper, gridHelper);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
-function animate() {
+function animate(time) {
+  // console.log(time);
+
   requestAnimationFrame(animate);
 
   controls.update();
@@ -73,6 +88,9 @@ function handleMotion(e) {
   torus.position.x += e.acceleration.x;
   torus.position.y += e.acceleration.y;
   torus.position.z += e.acceleration.z;
+
+  // let speed = geolocationCoordinatesInstance.speed;
+  // console.log(speed);
 }
 
 window.addEventListener('devicemotion', handleMotion);

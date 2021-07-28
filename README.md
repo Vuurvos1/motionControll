@@ -1,3 +1,5 @@
+![motion controll banner](docs/banner.svg)
+
 # Motion Controll
 
 Use your phone as a motion controller

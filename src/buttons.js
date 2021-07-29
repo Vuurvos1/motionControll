@@ -1,3 +1,6 @@
+import { io } from 'socket.io-client';
+let socket = io('http://localhost:4000');
+
 export function buttonSetup() {
   const vibrationTime = 5;
 
@@ -22,9 +25,13 @@ export function buttonSetup() {
   document.querySelector('.buttonA').addEventListener('click', (e) => {
     navigator.vibrate(vibrationTime);
     console.log('A');
+
+    socket.emit('buttonPress', 'A');
   });
   document.querySelector('.buttonB').addEventListener('click', (e) => {
     navigator.vibrate(vibrationTime);
     console.log('B');
+
+    socket.emit('buttonPress', 'B');
   });
 }

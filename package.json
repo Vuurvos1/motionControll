@@ -2,15 +2,24 @@
   "name": "motion-controlls",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
+    "client-dev": "vite",
+    "dev": "npx npm-run-all --parallel server-dev client-dev",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "server-dev": "npx nodemon ./server/index.js",
+    "start": "vite build && node ./server/index.js"
   },
   "devDependencies": {
+    "nodemon": "^2.0.12",
+    "npm-run-all": "^4.1.5",
     "sass": "^1.36.0",
     "vite": "^2.4.4"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3",
     "three": "^0.130.1"
   }
 }

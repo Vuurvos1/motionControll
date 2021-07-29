@@ -15,7 +15,9 @@ let io = socketio(server, {
 });
 
 app.use(express.static('dist'));
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:4000'] }));
+app.use(
+  cors({ origin: ['http://localhost:3000', 'http://localhost:4000', '*'] })
+);
 
 io.on('connection', (socket) => {
   console.log(`A new client connected: ${socket.id}`);

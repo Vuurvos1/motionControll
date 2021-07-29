@@ -15,6 +15,12 @@ Install dependencies
 pnpm i
 ```
 
+Create a `.env` file containing
+
+```env
+VITE_SERVER=ServerUrl default localhost:4000
+```
+
 Start the project
 
 ```bash

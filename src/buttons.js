@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client';
-let socket = io('http://localhost:4000');
+const url = import.meta.env.VITE_SERVER;
+let socket = io(`http://${url || 'localhost:4000'}`);
 
 export function buttonSetup() {
   const vibrationTime = 5;

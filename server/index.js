@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
@@ -14,7 +16,7 @@ let io = socketio(server, {
   },
 });
 
-app.use(express.static('dist'));
+app.use(express.static('./dist'));
 app.use(
   cors({ origin: ['http://localhost:3000', 'http://localhost:4000', '*'] })
 );

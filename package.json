@@ -6,10 +6,10 @@
   "scripts": {
     "client-dev": "vite",
     "dev": "npx npm-run-all --parallel server-dev client-dev",
-    "build": "vite build",
+    "build": "npx vite build",
     "serve": "vite preview",
     "server-dev": "npx nodemon ./server/index.js",
-    "start": "vite build && node ./server/index.js"
+    "start": "npx vite build && node ./server/index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",

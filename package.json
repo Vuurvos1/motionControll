@@ -9,7 +9,7 @@
     "build": "npx vite build",
     "serve": "vite preview",
     "server-dev": "npx nodemon ./server/index.js",
-    "start": "npx vite build && node ./server/index.js"
+    "start": "node ./server/index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",

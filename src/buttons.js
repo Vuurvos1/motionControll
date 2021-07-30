@@ -1,13 +1,4 @@
 export function buttonSetup(socket) {
-  document.querySelector('.controllerSelect').addEventListener('click', () => {
-    document.querySelector('.data').style.display = 'none';
-  });
-  document.querySelector('.gameSelect').addEventListener('click', () => {
-    document.querySelector('.controller').style.display = 'none';
-
-    socket.emit('joinRoom', null);
-  });
-
   const vibrationTime = 5;
 
   document.querySelector('.up').addEventListener('click', (e) => {

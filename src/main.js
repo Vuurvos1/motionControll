@@ -11,7 +11,24 @@ import { buttonSetup } from './buttons';
 
 buttonSetup(socket);
 
-let controllerData = {};
+let controllerData = { rot: { x: null, y: 0, z: 0 } };
+let phone = false;
+document.querySelector('.controllerSelect').addEventListener('click', () => {
+  document.querySelector('.data').style.display = 'none';
+  phone = true;
+
+  setInterval(() => {
+    if (controllerData.rot.x != null) {
+      // console.log('send', controllerData);
+      socket.emit('inputs', controllerData);
+    }
+  }, 500);
+});
+document.querySelector('.gameSelect').addEventListener('click', () => {
+  document.querySelector('.controller').style.display = 'none';
+
+  socket.emit('joinRoom', null);
+});
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
@@ -102,12 +119,8 @@ function handleMotion(e) {
 
 window.addEventListener('devicemotion', handleMotion);
 
-setInterval(() => {
-  socket.emit('inputs', controllerData);
-}, 500);
-
 socket.on('inputs', (data) => {
-  console.log(data);
+  // console.log(data);
   torus.rotation.x = data.rot.x;
   torus.rotation.y = data.rot.y;
   torus.rotation.z = data.rot.z;

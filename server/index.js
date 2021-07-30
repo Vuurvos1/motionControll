@@ -30,6 +30,7 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (data) => {
     if (data) {
       console.log(`Join room: ${data}`);
+      room = data;
       socket.join(data);
     } else if (room === '') {
       room = generateId(5);
@@ -41,7 +42,7 @@ io.on('connection', (socket) => {
   socket.on('inputs', (data) => {
     if (room != '') {
       // console.log(data);
-      socket.to(room).emit(data);
+      socket.to(room).emit('inputs', data);
     }
   });
 

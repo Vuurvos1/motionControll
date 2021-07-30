@@ -21,9 +21,10 @@ Create a `.env` file containing
 VITE_SERVER=ServerUrl default localhost:4000
 ```
 
-Start the project
+Starting the project
 
 ```bash
+npm run build
 npm run dev
 ```
 
@@ -31,4 +32,10 @@ Build the project
 
 ```bash
 npm run build
+```
+
+Work on the project
+
+```bash
+npm run dev
 ```

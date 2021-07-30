@@ -1,11 +1,17 @@
 import './style.scss';
 
-import * as THREE from 'three';
+import { io } from 'socket.io-client';
+const url = import.meta.env.VITE_SERVER;
+const socket = io(`http://${url || 'localhost:4000'}`);
 
+import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { buttonSetup } from './buttons';
-buttonSetup();
+
+buttonSetup(socket);
+
+let controllerData = {};
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
@@ -76,9 +82,7 @@ function handleOrientation(e) {
     z: (e.gamma * Math.PI) / 180 + 360,
   };
 
-  torus.rotation.x = rot.x;
-  torus.rotation.y = rot.y;
-  torus.rotation.z = rot.z;
+  controllerData.rot = rot;
 }
 
 window.addEventListener('deviceorientation', handleOrientation, true);
@@ -97,3 +101,14 @@ function handleMotion(e) {
 }
 
 window.addEventListener('devicemotion', handleMotion);
+
+setInterval(() => {
+  socket.emit('inputs', controllerData);
+}, 500);
+
+socket.on('inputs', (data) => {
+  console.log(data);
+  torus.rotation.x = data.rot.x;
+  torus.rotation.y = data.rot.y;
+  torus.rotation.z = data.rot.z;
+});

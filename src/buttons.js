@@ -1,8 +1,13 @@
-import { io } from 'socket.io-client';
-const url = import.meta.env.VITE_SERVER;
-let socket = io(`http://${url || 'localhost:4000'}`);
+export function buttonSetup(socket) {
+  document.querySelector('.controllerSelect').addEventListener('click', () => {
+    document.querySelector('.data').style.display = 'none';
+  });
+  document.querySelector('.gameSelect').addEventListener('click', () => {
+    document.querySelector('.controller').style.display = 'none';
 
-export function buttonSetup() {
+    socket.emit('joinRoom', null);
+  });
+
   const vibrationTime = 5;
 
   document.querySelector('.up').addEventListener('click', (e) => {
@@ -34,5 +39,13 @@ export function buttonSetup() {
     console.log('B');
 
     socket.emit('buttonPress', 'B');
+  });
+
+  // controller join room
+  document.querySelector('.roomController').addEventListener('submit', (e) => {
+    e.preventDefault();
+    // lowercase and trim
+    const id = document.querySelector('.roomInput').value;
+    socket.emit('joinRoom', id);
   });
 }

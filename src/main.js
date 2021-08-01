@@ -125,3 +125,7 @@ socket.on('inputs', (data) => {
   torus.rotation.y = data.rot.y;
   torus.rotation.z = data.rot.z;
 });
+
+socket.on('roomCode', (data) => {
+  document.querySelector('.roomCode').textContent = `roomcode: ${data}`;
+});

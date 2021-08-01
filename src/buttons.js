@@ -1,6 +1,7 @@
 export function buttonSetup(socket) {
   const vibrationTime = 5;
 
+  // change click to touch start/end and mousedown/mouseup
   document.querySelector('.up').addEventListener('click', (e) => {
     navigator.vibrate(vibrationTime);
 

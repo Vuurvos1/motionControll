@@ -36,6 +36,7 @@ io.on('connection', (socket) => {
       room = generateId(5);
       console.log(`Room: ${room}`);
       socket.join(room);
+      socket.emit('roomCode', room);
     }
   });
 

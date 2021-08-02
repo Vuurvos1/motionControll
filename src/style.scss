@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  font-family: sans-serif;
 }
 
 button {
@@ -14,6 +16,24 @@ main {
   canvas {
     width: 20rem;
     height: 20rem;
+  }
+}
+
+.setup {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+
+  h1 {
+    margin-bottom: 2ch;
+  }
+
+  button {
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.25rem;
+
+    background-color: hotpink;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
   }
 }
 

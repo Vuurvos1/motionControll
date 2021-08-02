@@ -1,5 +1,4 @@
-export const controllerTemplate = (data) => {
-  return `
+export const controllerTemplate = `
     <section class="controller">
       <div class="dpad">
         <div></div>
@@ -29,10 +28,8 @@ export const controllerTemplate = (data) => {
         <button>Join</button>
       </form>
     </section>`;
-};
 
-export const gameTemplate = (data) => {
-  return `
+export const gameTemplate = `
     <section class="data">
       <canvas id="bg"></canvas>
 
@@ -53,4 +50,3 @@ export const gameTemplate = (data) => {
       <p class="buttonData">A</p>
       <p>B</p>
     </section>`;
-};

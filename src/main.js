@@ -2,7 +2,7 @@ import './style.scss';
 
 import { io } from 'socket.io-client';
 const url = import.meta.env.VITE_SERVER;
-const socket = io(`https://${url || 'localhost:4000'}`);
+const socket = io(url != '' ? `https://${url}` : 'localhost:4000');
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -64,6 +64,13 @@ function _gameSetup() {
   scene.add(lightHelper, gridHelper);
 
   const controls = new OrbitControls(camera, renderer.domElement);
+
+  socket.on('inputs', (data) => {
+    // console.log(data);
+    torus.rotation.x = data.rot.x;
+    torus.rotation.y = data.rot.y;
+    torus.rotation.z = data.rot.z;
+  });
 
   function animate(time) {
     // console.log(time);
@@ -129,19 +136,12 @@ document.querySelector('.controllerSelect').addEventListener('click', () => {
       // console.log('send', controllerData);
       socket.emit('inputs', controllerData);
     }
-  }, 500);
+  }, 42);
 });
 document.querySelector('.gameSelect').addEventListener('click', () => {
   _gameSetup(null);
 
   socket.emit('joinRoom', null);
-});
-
-socket.on('inputs', (data) => {
-  // console.log(data);
-  torus.rotation.x = data.rot.x;
-  torus.rotation.y = data.rot.y;
-  torus.rotation.z = data.rot.z;
 });
 
 socket.on('roomCode', (data) => {

@@ -2,7 +2,7 @@ import './style.scss';
 
 import { io } from 'socket.io-client';
 const url = import.meta.env.VITE_SERVER;
-const socket = io(`http://${url || 'localhost:4000'}`);
+const socket = io(`https://${url || 'localhost:4000'}`);
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';

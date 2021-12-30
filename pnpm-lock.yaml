@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@tweenjs/tween.js': ^18.6.4
   cors: ^2.8.5
   dotenv: ^10.0.0
   express: ^4.17.1
@@ -13,6 +14,7 @@ specifiers:
   vite: ^2.4.4
 
 dependencies:
+  '@tweenjs/tween.js': 18.6.4
   cors: 2.8.5
   dotenv: 10.0.0
   express: 4.17.1
@@ -39,6 +41,10 @@ packages:
     dependencies:
       defer-to-connect: 1.1.3
     dev: true
+
+  /@tweenjs/tween.js/18.6.4:
+    resolution: {integrity: sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==}
+    dev: false
 
   /@types/component-emitter/1.2.10:
     resolution: {integrity: sha512-bsjleuRKWmGqajMerkzox19aGbscQX5rmmvvXl3wlIp5gMG1HgkiwPxsN5p070fBDKTNSPgojVbuY1+HWMbFhg==}

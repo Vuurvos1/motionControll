@@ -7,6 +7,8 @@ const socket = io(url != '' ? `https://${url}` : 'localhost:4000');
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import TWEEN from '@tweenjs/tween.js';
+
 import { buttonSetup } from './buttons';
 import { gameSetup } from './game';
 import { controllerTemplate, gameTemplate } from './templates';
@@ -147,3 +149,92 @@ document.querySelector('.gameSelect').addEventListener('click', () => {
 socket.on('roomCode', (data) => {
   document.querySelector('.roomCode').textContent = `roomcode: ${data}`;
 });
+
+// debugging stuff
+debugFunc(null);
+
+function debugFunc() {
+  document.querySelector('main').innerHTML = gameTemplate;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
+
+  function resizeCanvas() {
+    const canvas = renderer.domElement;
+    // look up the size the canvas is being displayed
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    // adjust displayBuffer size to match
+    if (canvas.width !== width || canvas.height !== height) {
+      // you must pass false here or three.js sadly fights the browser
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#bg'),
+  });
+
+  resizeCanvas();
+
+  renderer.setPixelRatio(window.devicePixelRatio);
+  camera.position.setZ(-30);
+  camera.position.setY(10);
+
+  // const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+  const geometry = new THREE.BoxGeometry(5, 1, 12);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xff6347,
+  });
+  const torus = new THREE.Mesh(geometry, material);
+
+  scene.add(torus);
+
+  const pointLight = new THREE.PointLight(0xffffff);
+  pointLight.position.set(10, 10, 10);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff);
+  scene.add(pointLight, ambientLight);
+
+  const lightHelper = new THREE.PointLightHelper(pointLight);
+  const gridHelper = new THREE.GridHelper(200, 50);
+  scene.add(lightHelper, gridHelper);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+
+  function animate(time) {
+    // console.log(time);
+
+    controls.update();
+
+    renderer.render(scene, camera);
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // gyro
+  window.addEventListener(
+    'deviceorientation',
+    (e) => {
+      const a = new THREE.Euler(
+        deg2rad(-e.beta),
+        deg2rad(e.alpha),
+        deg2rad(e.gamma),
+        'YXZ'
+      );
+      torus.setRotationFromEuler(a);
+    },
+    true
+  );
+}
+
+function deg2rad(deg) {
+  return (deg * Math.PI) / 180;
+}

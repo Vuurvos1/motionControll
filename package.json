@@ -1,29 +1,36 @@
 {
-  "name": "motion-controlls",
-  "version": "0.0.1",
-  "description": "Use your phone as a motion controller",
-  "main": "server/index.js",
-  "scripts": {
-    "client-dev": "vite",
-    "dev": "npx npm-run-all --parallel server-dev client-dev",
-    "build": "npx vite build",
-    "serve": "vite preview",
-    "server-dev": "npx nodemon ./server/index.js",
-    "start": "node ./server/index.js"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12",
-    "npm-run-all": "^4.1.5",
-    "sass": "^1.36.0",
-    "vite": "^2.4.4"
-  },
-  "dependencies": {
-    "@tweenjs/tween.js": "^18.6.4",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "socket.io": "^4.1.3",
-    "socket.io-client": "^4.1.3",
-    "three": "^0.130.1"
-  }
+	"name": "motion-control",
+	"version": "0.1.0",
+	"description": "Use your phone as a motion controller",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"start": "node ./server",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"prepare": "svelte-kit sync",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "1.0.0-next.78",
+		"@sveltejs/kit": "next",
+		"eslint": "^8.18.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.7.0",
+		"sass": "^1.53.0",
+		"svelte": "^3.48.0",
+		"svelte-preprocess": "^4.10.7"
+	},
+	"dependencies": {
+		"@tweenjs/tween.js": "^18.6.4",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"socket.io": "^4.1.3",
+		"socket.io-client": "^4.1.3",
+		"three": "^0.130.1"
+	},
+	"type": "module"
 }

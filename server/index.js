@@ -1,66 +1,22 @@
-require('dotenv').config();
+import 'dotenv/config';
 
-const express = require('express');
-const http = require('http');
-const cors = require('cors');
-const socketio = require('socket.io');
+import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
-const port = process.env.PORT || 4000;
+import { handler } from '../build/handler.js';
+import { socketEvents } from './socket.js';
 
-let app = express();
-let server = http.createServer(app);
-let io = socketio(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
-});
+const port = process.env.PORT || 3000;
+const app = express();
+const server = createServer(app);
 
-app.use(express.static('./dist'));
-app.use(
-  cors({ origin: ['http://localhost:3000', 'http://localhost:4000', '*'] })
-);
+const io = new Server(server);
 
 io.on('connection', (socket) => {
-  console.log(`A new client connected: ${socket.id}`);
-
-  // generate 5 char id
-  let room = '';
-
-  socket.on('joinRoom', (data) => {
-    if (data) {
-      console.log(`Join room: ${data}`);
-      room = data;
-      socket.join(data);
-    } else if (room === '') {
-      room = generateId(5);
-      console.log(`Room: ${room}`);
-      socket.join(room);
-      socket.emit('roomCode', room);
-    }
-  });
-
-  socket.on('inputs', (data) => {
-    if (room != '') {
-      // console.log(data);
-      socket.to(room).emit('inputs', data);
-    }
-  });
-
-  socket.on('buttonPress', (data) => {
-    console.log(`button pressed: ${data}`);
-  });
+	socketEvents(io, socket);
 });
 
-function generateId(length) {
-  let result = '';
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+app.use(handler);
 
-  for (let i = 0; i < length; i++) {
-    result += chars[~~(Math.random() * chars.length)];
-  }
-
-  return result;
-}
-
-server.listen(port, () => console.log(`listening at http://localhost:${port}`));
+server.listen(port);
